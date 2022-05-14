@@ -9,7 +9,7 @@ class DataBase{
     private $dbh;
     private $stmt;
     private $error;
-
+ 
 
     public function __construct()
     {

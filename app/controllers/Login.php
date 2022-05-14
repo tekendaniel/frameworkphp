@@ -19,7 +19,6 @@ class Login extends ControllerBase{
     public function index(){
 
         if(isset($_SESSION['usuarioLogin'])){
-
             $this->view('pages/home');
 
         }else{

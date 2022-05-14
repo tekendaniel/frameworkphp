@@ -10,7 +10,7 @@ session_start();
 
 class Proveedores extends ControllerBase {
 
-
+    protected $response = array();
 
     public function index(){
 
@@ -21,11 +21,21 @@ class Proveedores extends ControllerBase {
         $result = $pModel->MostrarProveedores($idUsuario);
 
         if(is_array($result)){
-           /* Resolve::Response(array( 
-                "content" => $result,
-            ));*/
 
-            $this->view("pages/proveedores", $result);
+            foreach($result as $r){
+                $services = $pModel->MostrarServiciosDeProveedores($r->IdProveedor);
+
+                $provv = (array) $r;
+
+                $provv['servicios'] = $services;
+
+
+                array_push($this->response, $provv);
+
+            }
+
+
+            $this->view("pages/proveedoresView", $this->response);
         }
     }
 
@@ -42,7 +52,7 @@ class Proveedores extends ControllerBase {
 
         $provv = $pModel->BuscarProveedorPorId($idProveedor);
 
-        $services = $pModel->MostrarSuscripcionesDeProveedores($idProveedor);
+        $services = $pModel->MostrarServiciosDeProveedores($idProveedor);
 
         $respuesta = [];
 
@@ -120,7 +130,7 @@ class Proveedores extends ControllerBase {
     public function listarServiciosJson($idProveedor){
         $pModel = $this->model("ProveedorModel");
 
-        $result = $pModel->MostrarSuscripcionesDeProveedores($idProveedor);
+        $result = $pModel->MostrarServiciosDeProveedores($idProveedor);
 
         if(is_array($result)){
            Resolve::Response(array( 
@@ -134,7 +144,7 @@ class Proveedores extends ControllerBase {
     public function mostrarSuscripciones($idProveedor){
         $pModel = $this->model("ProveedorModel");
 
-        $resul = $pModel->MostrarSuscripcionesDeProveedores($idProveedor);
+        $resul = $pModel->MostrarServiciosDeProveedores(trim($idProveedor,""));
 
         if(is_array($resul)){
             Resolve::Response(array( 
@@ -150,10 +160,15 @@ class Proveedores extends ControllerBase {
     public function eliminarProveedor($idProveedor){
         $pModel = $this->model("ProveedorModel");
 
-        if($pModel->EliminarProveedorModel($idProveedor)){
+        if($pModel->EliminarProveedorModel(trim($idProveedor,""))){
 
             Resolve::Response(array(
                 "message" => Alert::show("success", "Se ha eliminado el proveedor correctamente!")
+            ));
+        }else{
+
+            Resolve::Response(array(
+                "message" => "No se pudo eliminar"
             ));
         }
 

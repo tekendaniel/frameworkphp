@@ -26,7 +26,12 @@ ini_set("display_errors", 2);
      <script src="<?php echo RUTA_URL . "public/js/async.js" ?>"></script> 
 
      <script src="<?php echo RUTA_URL . "public/js/utiles.js" ?>" ></script> 
-     
+
+     <link rel="stylesheet" href="<?php echo RUTA_URL . "public/css/categories.css" ?>">
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.css">
+     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.0/main.min.js"></script>
+
 
 
 </head>

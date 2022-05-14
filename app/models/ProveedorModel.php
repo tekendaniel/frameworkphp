@@ -70,9 +70,9 @@ class ProveedorModel{
     }
 
     /* MUESTRA LOS SERVICIOS DE CADA PROVEEDOR */
-    public function MostrarSuscripcionesDeProveedores($idProveedor){
+    public function MostrarServiciosDeProveedores($idProveedor){
         try{
-            $this->connection->query("CALL mostrarSuscripcion(:IP)");
+            $this->connection->query("CALL mostrarServicios(:IP)");
             $this->connection->bind(":IP",$idProveedor );
             $this->response = $this->connection->dataAll();
     
@@ -135,7 +135,7 @@ class ProveedorModel{
     public function EliminarProveedorModel($idProveedor){
         try{
             $this->connection->query("CALL eliminarProveedor(:IP)");
-            $this->connection->bind(":IP",$idProveedor );
+            $this->connection->bind(":IP", $idProveedor );
             
             $this->connection->execute();
 

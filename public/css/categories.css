@@ -1,0 +1,267 @@
+
+.categories-colors-container{
+    width: auto;
+    grid-template-columns: minmax(auto, 1024px);
+    display: grid;
+    -webkit-box-pack: center;
+    justify-content:center;
+  }
+  
+  .categories-colors-container .categories-items{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-gap: 1rem;
+      grid-row-gap: 0.5em;
+  }
+  
+  .categories-colors-container .categories-items .categories-item{
+    display:grid;
+    grid-template-columns: 64px auto;
+    background-color: #f2f2f2;
+    border-radius: 6px;
+    position:relative;
+    cursor: pointer;
+    transition: 0.2s;
+    overflow: hidden;
+    z-index:0;
+  }
+  
+  .categories-item:before{
+    content : "";
+    position:absolute;
+    z-index: -1;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.3s ease-out;
+  }
+  .categories-item:hover{
+    color:#fff;
+  }
+  .categories-item:hover:before{
+    transform: scaleX(1);
+  }
+  
+  .categories-items .categories-item .category-bagde{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .categories-colors-container .categories-items .categories-item .category-namecategory{
+    padding: 12px;
+  }
+  
+  
+   .category-namecategory h2{
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .category-namecategory span{
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .categories-item a{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom: 0;
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .categories-items .category-green .category-bagde{
+    background-color: #33b13a;
+    color: #fff;
+  }
+  .categories-items .category-green:before{
+    background-color: #33b13a;
+  }
+  .categories-items .category-violet .category-bagde{
+    background-color: #6b407e;
+    color: #fff;
+  }
+  .categories-items .category-violet:before{
+    background-color: #6b407e;
+  }
+  
+  .categories-items .category-red .category-bagde{
+    background-color: #cb161d;
+    color: #fff;
+  }
+  .categories-items .category-red:before{
+      background-color: #cb161d;
+  }
+  .categories-items .category-magenta .category-bagde{
+    background-color:#f5c443;
+    color: #fff;
+  }
+  .categories-items .category-magenta:before{
+      background-color: #f5c443;
+  }
+  
+  /******************************************************/
+  
+  .categories-circles-container
+  {
+     grid-template-columns: minmax(auto, 1024px);
+    display: grid;
+    -webkit-box-pack: center;
+    justify-content:center;
+  }
+  
+  .categories-circles-container .categories-circles-items{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    gripd-row-gap: 0.5em;
+  }
+  
+  .categories-circles-container .categories-circles-items .categories-circles-item{
+    display: grid;
+    grid-template-columns: 64px auto;
+    position:relative;
+    overflow: hidden;
+    border-radius:0 50px 50px 0;
+  }
+  
+  .categories-circles-items .categories-circles-item:before{
+    content:"";
+    position:absolute;
+    z-index: -1;
+    top: 0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    transform: scaleX(0);
+    transform-origin: 0 50%;
+    transition: transform 0.3s ease-out;
+    margin-left:30px;
+  }
+  
+  .categories-circles-items .categories-circles-item .categories-circles-bagde i
+  {
+    transition: transform 0.3s ease-out; 
+  }
+  
+  .categories-circles-items .categories-circles-item:hover:before{
+    transform: scaleX(1);
+  }
+  
+  .categories-circles-items .categories-circles-item:hover .categories-circles-bagde i{
+    transform: rotate(360deg);
+  }
+  .categories-circles-items .categories-circles-item:hover .categories-circles-namecategory{
+    color:#fff;
+  }
+  .categories-circles-item .categories-circles-bagde{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+  }
+  
+  .categories-circles-item .categories-circles-namecategory{
+    padding: 10px;
+  }
+  .categories-circles-item .categories-circles-namecategory h3{
+    margin: 0;
+    font-size: 16px;
+  }
+  .categories-circles-item .categories-circles-namecategory span{
+    font-weight: 500;
+    font-size: 12px;
+  }
+  
+  .categories-circles-items .circle-green .categories-circles-bagde{
+    background-color: #33b13a;
+    color: #fff;
+  }
+  
+  .categories-circles-items .circle-green:hover .categories-circles-bagde{
+    background-color: #fff;
+    color: #33b13a;
+    border: 4px solid #33b13a;
+  }
+  .categories-circles-items .circle-green:before
+  {
+     background-color: #33b13a;
+  }
+  
+  .categories-circles-items .circle-violet .categories-circles-bagde{
+    background-color: #6b407e;
+    color: #fff;
+  }
+  
+  .categories-circles-items .circle-violet:hover .categories-circles-bagde{
+    background-color: #fff;
+    color: #6b407e;
+    border: 4px solid #6b407e;
+  }
+  .categories-circles-items .circle-violet:before
+  {
+     background-color: #6b407e;
+  }
+  
+  .categories-circles-items .circle-red .categories-circles-bagde{
+    background-color: #cb161d;
+    color: #fff;
+  }
+  
+  .categories-circles-items .circle-red:hover .categories-circles-bagde{
+    background-color: #fff;
+    color: #cb161d;
+    border: 4px solid #cb161d;
+  }
+  .categories-circles-items .circle-red:before
+  {
+     background-color: #cb161d;
+  }
+  
+  .categories-circles-items .circle-magenta .categories-circles-bagde{
+    background-color: #f5c443;
+    color: #fff;
+  }
+  
+  .categories-circles-items .circle-magenta:hover .categories-circles-bagde{
+    background-color: #fff;
+    color: #f5c443;
+    border: 4px solid #f5c443;
+  }
+  .categories-circles-items .circle-magenta:before
+  {
+     background-color: #f5c443;
+  }
+  
+  
+  
+  @media only screen and (min-width:768px)
+  {
+    .categories-colors-container .categories-items{
+      grid-template-columns: 1fr 1fr;
+      }
+   /********************************/
+    
+    .categories-circles-container .categories-circles-items{
+       grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media only screen and (min-width:1024px)
+  {
+    
+    .categories-colors-container .categories-items{
+      grid-template-columns: repeat(3, 1fr);
+      }
+    .categories-items .category-center{
+    grid-column:  2 /2;
+    }
+    
+  }
