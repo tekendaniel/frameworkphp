@@ -41,7 +41,7 @@ class Proveedores extends ControllerBase {
 
 
     public function create(){
-        $this->view("pages/registrar_proveedores");
+        $this->view("pages/registrarProveedoresView"); 
     }
 
 
@@ -66,7 +66,27 @@ class Proveedores extends ControllerBase {
             
         }
 
-        $this->view("pages/editar_proveedor", $respuesta);
+        $this->view("pages/editarProveedorView", $respuesta);
+    }
+
+
+    public function obtenerproveedor($idProveedor){
+        $pModel = $this->model("ProveedorModel");
+        $provv = $pModel->BuscarProveedorPorId($idProveedor);
+        $services = $pModel->MostrarServiciosDeProveedores($idProveedor);
+        $respuesta = [];
+
+        if(is_object($provv)){
+
+            $respuesta = array(
+                "proveedor" => $provv,
+                "servicios" => $services
+            );
+        }
+        Resolve::Response(array(
+            "content" => $respuesta,
+        ));
+
     }
 
 
@@ -76,7 +96,8 @@ class Proveedores extends ControllerBase {
 
        $pModel = $this->model("ProveedorModel");
 
-       if(empty($_POST['nombreproveedor']) ||  empty($_POST['categoria'])){
+
+       if(empty($_POST['nombreproveedor']) ||  empty($_POST['categoria']) || json_decode($_POST['serviciosList']) == []){
             
         Resolve::Response(array(
             "message" => Alert::show("info", "Debe completar todos los campos obligatorios"),
@@ -85,7 +106,7 @@ class Proveedores extends ControllerBase {
        
        }else{
             #Depues de crear un proveedor devuelve un array de proveedores
-            $resul = $pModel->InsertProveedor($idUsuario, $_POST['nombreproveedor'], $_POST['categoria'],$_POST['descripcion'], $_POST['telefono'], json_decode($_POST['suscripciones']) );
+            $resul = $pModel->InsertProveedor($idUsuario, $_POST['nombreproveedor'], $_POST['categoria'],$_POST['descripcion'], $_POST['telefono'], json_decode($_POST['serviciosList']) );
 
             
             if(is_array($resul)){
@@ -103,9 +124,39 @@ class Proveedores extends ControllerBase {
 
        }    
     
-
     }
 
+    public function editarproveedor(){
+        if(empty($_POST['nombreproveedor']) ||  empty($_POST['categoria']) || json_decode($_POST['serviciosList']) == []){
+            
+            Resolve::Response(array(
+                "message" => Alert::show("info", "Debe completar todos los campos obligatorios"),
+    
+            ));
+           
+           }else{
+
+            $pModel = $this->model("ProveedorModel");
+
+           // print_r($_POST);
+
+            
+
+            $resul = $pModel->EditarProveedorModel( $_POST['IdProveedor'], $_POST['nombreproveedor'], $_POST['telefono'], $_POST['descripcion'], $_POST['categoria'], json_decode($_POST['serviciosList']), json_decode($_POST['servicesDeleted']));
+
+            if($resul){
+
+                Resolve::Response(array(
+                    "content" => "Se actualizó el proveedor exitosamente"
+                ));
+            }else{
+                Resolve::Response(array(
+                    "message" => Alert::show("error", $resul)
+                ));
+            }
+            
+           }
+    }
 
     /* Listar proveedores por usuarios (json api) */
 

@@ -22,7 +22,7 @@
         foreach ($datos['contratos'] as $d) :
     ?>
 
-            <div class="row mt-4">
+            <div class="row mt-4"> 
                 <div class="col-4">
 
                     <div class="card border-0 shadow">
@@ -36,10 +36,10 @@
                                 <div class="col-9 ps-0">
                                     <div>
                                         <div class="fw-ligh">Movistar</div>
-                                        <h5 class="d-blockt"><?php echo $d->NombreSuscripcion ?></h5>
-                                        <small><b>Monto:</b> <?php echo $d->Pago ?></small><br>
-                                        <small><b>Fecha Inicio:</b> <?php echo $d->Inicio ?></small><br>
-                                        <small><b>Ciclo de Pago:</b> <?php echo $d->Ciclo ?></small>
+                                        <h5 class="d-blockt"><?php echo $d->nombresuscripcion ?></h5>
+                                        <small><b>Monto:</b> <?php echo $d->precio ?></small><br>
+                                        <small><b>Fecha Inicio:</b> <?php echo $d->inicio ?></small><br>
+                                        <small><b>Ciclo de Pago:</b> <?php echo $d->ciclo ?></small>
                                     </div>
                                 </div>
                             </div>

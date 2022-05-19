@@ -105,18 +105,12 @@ class ProveedorModel{
                 $idProveedor = $this->BuscarProveedor($idUsuario, $nombre);
 
                 if($idProveedor){
-      
                     foreach($suscripciones as $sus){
-
-                        $this->connection->query("CALL agregarSuscripcion(:N, :D, :P, :IP)");
+                        $this->connection->query("CALL agregarSuscripcion(:N, :P, :IP)");
                         $this->connection->bind(":N", $sus->nombresuscripcion);
-                        $this->connection->bind(":D", $sus->descripcion);
                         $this->connection->bind(":P", floatval($sus->precio) );
                         $this->connection->bind(":IP", intval($idProveedor->IdProveedor) );
-    
                         $this->connection->execute();
-    
-    
                         $this->response =  $this->MostrarProveedores($idUsuario);
                     }
                 }
@@ -125,12 +119,60 @@ class ProveedorModel{
 
         }catch(Exception $e){
 
-            $this->response = "Ha ocurrido un error al registrar proveedor";
+            $this->response = $e->getMessage();
         }
         
             return $this->response;
     }
 
+
+    public function EditarProveedorModel(int $idProveedor, string $nombre, string $fono, string $descripcion, string $categoria, array $servicios, array $servicesDeleted){
+
+        try{
+            $this->connection->query("CALL editarProveedor(:N, :F, :D, :C, :ID)");
+            $this->connection->bind(":N", $nombre);
+            $this->connection->bind(":F", $fono);
+            $this->connection->bind(":D", $descripcion);
+            $this->connection->bind(":C", $categoria);
+            $this->connection->bind(":ID", $idProveedor);
+            
+            $this->connection->execute();
+
+
+                    foreach($servicesDeleted as $serDel){
+                        $this->connection->query("CALL eliminarServicio(:IS)");
+                        $this->connection->bind(":IS", $serDel);
+                        $this->connection->execute();
+                    }
+
+
+                    foreach($servicios as $ser){
+                        if(property_exists($ser, "IdSuscripcion")){
+                            $this->connection->query("CALL editarServicio(:NS, :P, :IS)");
+                            $this->connection->bind(":NS", $ser->nombresuscripcion);
+                            $this->connection->bind(":P", floatval($ser->precio));
+                            $this->connection->bind(":IS", $ser->IdSuscripcion);
+                            $this->connection->execute();
+                            $this->response = true;
+                        }else{
+                            $this->connection->query("CALL agregarSuscripcion(:N, :P, :IP)");
+                            $this->connection->bind(":N", $ser->nombresuscripcion);
+                            $this->connection->bind(":P", floatval($ser->precio) );
+                            $this->connection->bind(":IP", intval($idProveedor) );
+                            $this->connection->execute();
+                        }
+                        
+                    }
+
+                
+            
+
+        }catch(Exception $e){
+            $this->response = $e->getMessage();
+        }
+
+        return $this->response;
+    }
 
     public function EliminarProveedorModel($idProveedor){
         try{
