@@ -14,22 +14,57 @@ class Suscripciones extends ControllerBase
 
     public function index()
     {
-        /* SERIVICIOS CONTRATADOS */
+        $this->view("pages/listaSuscripcionesView");
+    }
+
+
+    public function listarrecordatorios(){
         $idUsuario = Session::getSession("usuarioLogin")['Id'];
-
-        $resp = [];
-
         $contrato = $this->model("ContratosModel");
-
         $resp = $contrato->listarContratos($idUsuario);
-        
-        $this->view("pages/listaSuscripcionesView", array( 'contratos' => $resp));
+
+        Resolve::Response(array(
+            'content' => $resp
+        ));
     }
 
 
     public function registrar()
     {
-        $this->view("pages/contratarSuscripcionView");
+        $this->view("pages/registrarRecordatorioView");
+    }
+
+    public function editar($idRecordatorio=null){
+       
+        if(!$idRecordatorio){
+            header("Location: http://localhost/sistemaweb/suscripciones");
+        }
+            
+        $this->view("pages/editarRecordatorioView");
+        
+    }
+
+    public function obtenerRecordatorio($idRecordatorio){
+        $recordatorio= $this->model("ContratosModel");
+        $resp = $recordatorio->obtenerRecordatorio($idRecordatorio);
+
+        Resolve::Response(array(
+            "content" => $resp
+        ));
+    }
+
+    public function eliminarrecordatorio($idRecordatorio){
+        $recordatorio = $this->model("ContratosModel");
+        $resp = $recordatorio->deleteRecordatorio($idRecordatorio);
+        if(isset($resp['deleted'])){
+            Resolve::Response(array(
+                "content" => true
+            ));
+        }else{
+            Resolve::Response(array(
+                "message" => $resp
+            ));
+        }
     }
 
 

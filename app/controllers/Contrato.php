@@ -47,4 +47,39 @@ class Contrato extends ControllerBase{
 
         
     }
+
+    public function editarRecordatorio(){
+
+        $contrato = $this->model("ContratosModel");
+
+        if(empty($_POST['idServicio']) || empty($_POST['IdProveedor']))
+        {
+            Resolve::Response(array(
+                'message' => Alert::show("info", "Debes completar los campos obligatorios")
+            ));
+        }else{ 
+
+              $state =  $contrato->EditarRecordatorio(
+                    $_POST['inicio'],
+                    $_POST['ciclo'],
+                    $_POST['duracion'],
+                    $_POST['idServicio'],
+                    $_POST['IdProveedor'],
+                    $_POST['TiempoRecordatorio'],
+                    $_POST['IdSusContratada']
+                );
+              
+            if($state){
+                Resolve::Response(array(
+                    'content' => true
+                ));
+            }
+            
+        }
+    }
+
+
+
+
+
 }

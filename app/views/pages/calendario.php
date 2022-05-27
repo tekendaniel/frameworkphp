@@ -148,7 +148,9 @@
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth'
+            initialView: 'dayGridMonth',
+            locale: 'es',
+            themeSystem: 'bootstrap4'
         });
         calendar.render();
     });
