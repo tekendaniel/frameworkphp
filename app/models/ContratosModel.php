@@ -30,18 +30,17 @@ class ContratosModel
         return $this->response;
     }
 
-    public function contratarSuscripcion($inicio, $ciclo, $duracion, $idServicio, $idProveedor, $idUsuario, $tiempoRecordatorio)
+    public function contratarSuscripcion($inicio, $ciclo, $duracion, $idServicio,  $idUsuario, $tiempoRecordatorio)
     {
         try {
 
-            $this->connection->query("INSERT INTO suscripcion_contratada(Inicio, Ciclo, Duracion, idServicio, idUsuario, idProveedor, TiempoRecordatorio) VALUES(:ii, :cc, :dd, :iser, :idus, :idp, :tpm)");
+            $this->connection->query("INSERT INTO suscripcion_contratada(inicio, ciclo, duracion, idServicio, idUsuario, TiempoRecordatorio) VALUES(:ii, :cc, :dd, :iser, :idus, :tpm)");
 
             $this->connection->bind(":ii", $inicio);
             $this->connection->bind(":cc", $ciclo);
             $this->connection->bind(":dd", $duracion);
             $this->connection->bind(":iser", $idServicio);
             $this->connection->bind(":idus", $idUsuario);
-            $this->connection->bind(":idp", $idProveedor);
             $this->connection->bind(":tpm", $tiempoRecordatorio);
 
             $this->connection->execute();
@@ -52,14 +51,13 @@ class ContratosModel
     }
 
 
-    public function isExistSuscripcion($idServicio, $idProveedor)
+    public function isExistSuscripcion($idServicio)
     {
         try {
 
-            $this->connection->query("SELECT * FROM suscripcion_contratada WHERE idServicio = :ISS AND IdProveedor = :IP");
+            $this->connection->query("SELECT * FROM suscripcion_contratada WHERE idServicio = :ISS");
 
             $this->connection->bind(":ISS", $idServicio);
-            $this->connection->bind(":IP", $idProveedor);
 
             $this->connection->execute();
 
@@ -73,32 +71,32 @@ class ContratosModel
         }
     }
 
-    public function EditarRecordatorio($inicio, $ciclo, $duracion, $idServicio, $idProveedor, $tiempoRecordatorio, $IdSusContratada)
+    public function EditarRecordatorio($inicio, $ciclo, $duracion, $idServicio, $tiempoRecordatorio, $IdSusContratada)
     {
        try{
-           $this->connection->query("UPDATE suscripcion_contratada SET Inicio = :INN, Ciclo = :CC, Duracion = :DD, TiempoRecordatorio = :TR, idServicio = :ISR, idProveedor = :IPR WHERE IdSusContratada = :ISC");
+           $this->connection->query("UPDATE suscripcion_contratada SET inicio = :INN, ciclo = :CC, duracion = :DD, TiempoRecordatorio = :TR, idServicio = :ISR WHERE IdSusContratada = :ISC");
            $this->connection->bind(":INN", $inicio);
            $this->connection->bind(":CC", $ciclo);
            $this->connection->bind(":DD", $duracion);
            $this->connection->bind(":TR", $tiempoRecordatorio);
            $this->connection->bind(":ISR", $idServicio);
-           $this->connection->bind(":IPR", $idProveedor);
            $this->connection->bind(":ISC", $IdSusContratada);
            $this->connection->execute();
-
            $this->response = true;
        }
        catch(Exception $e){
            $this->response = $e->getMessage();
        }
-
        return $this->response;
     }
 
     public function obtenerRecordatorio($idRecordatorio)
     {
         try {
-            $this->connection->query("SELECT * FROM suscripcion_contratada WHERE IdSusContratada = :IDR");
+            $this->connection->query("SELECT * FROM suscripcion_contratada 
+                                        INNER JOIN suscripcion ON suscripcion_contratada.IdServicio = suscripcion.IdSuscripcion 
+                                        INNER JOIN proveedor ON suscripcion.IdProveedor = proveedor.IdProveedor 
+                                        WHERE IdSusContratada = :IDR");
             $this->connection->bind(":IDR", $idRecordatorio);
             $result = $this->connection->dataOne();
 

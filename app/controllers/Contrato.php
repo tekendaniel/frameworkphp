@@ -22,7 +22,7 @@ class Contrato extends ControllerBase{
             ));
         }else{ 
 
-            if($contrato->isExistSuscripcion($_POST['idServicio'],$_POST['idProveedor'] )){
+            if($contrato->isExistSuscripcion($_POST['idServicio'])){
                 Resolve::Response(array(
                     'message' => Alert::show("warning", "Ya se ha registrado un contrato con este servicio")
                 ));
@@ -32,7 +32,6 @@ class Contrato extends ControllerBase{
                     $_POST['ciclo'],
                     $_POST['duracion'],
                     $_POST['idServicio'],
-                    $_POST['idProveedor'],
                     $idUsuario,
                     $_POST['tiempoRecordatorio']
                 );
@@ -52,34 +51,27 @@ class Contrato extends ControllerBase{
 
         $contrato = $this->model("ContratosModel");
 
+        
         if(empty($_POST['idServicio']) || empty($_POST['IdProveedor']))
         {
             Resolve::Response(array(
                 'message' => Alert::show("info", "Debes completar los campos obligatorios")
             ));
         }else{ 
-
               $state =  $contrato->EditarRecordatorio(
                     $_POST['inicio'],
                     $_POST['ciclo'],
                     $_POST['duracion'],
                     $_POST['idServicio'],
-                    $_POST['IdProveedor'],
                     $_POST['TiempoRecordatorio'],
                     $_POST['IdSusContratada']
                 );
-              
             if($state){
                 Resolve::Response(array(
                     'content' => true
                 ));
             }
-            
         }
     }
-
-
-
-
 
 }

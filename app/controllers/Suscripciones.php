@@ -75,4 +75,7 @@ class Suscripciones extends ControllerBase
 
         $pModel = $this->model("SuscripcionModel");
     }
+
+
+    
 }

@@ -19,7 +19,7 @@
                         <div class="col-9 ps-0">
                             <div>
                                 <div class="fw-ligh">Movistar</div>
-                                <h5 class="d-blockt">Plan Internet 50Mbps</h5>
+                                <h5 class="d-block">Plan Internet 50Mbps</h5>
                                 <small><b>Monto:</b> 70 soles</small><br>
                                 <small><b>Fecha:</b> Jueves 10 de marzo del 2022</small>
                             </div>
@@ -130,6 +130,7 @@
                 </div>
             </div>
         </div>
+
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
@@ -137,6 +138,9 @@
                 </div>
             </div>
         </div>
+
+
+
     </div>
 
 </div>

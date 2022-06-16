@@ -80,7 +80,6 @@ class  UsuarioModel {
 
         try{
             if(!$this->UserExist($nombres, $apellidos)){
-                //$this->Connection->query("INSERT INTO usuario(Nombre, Apellidos, DNI, Email, Password, IsAdmin) values(:N, :A, :D, :E, :P)");
                 $this->Connection->query("CALL crearUsuario(:N, :A, :D, :E, :P)");
                 $this->Connection->bind(":N", $nombres);
                 $this->Connection->bind(":A", $apellidos);
@@ -93,7 +92,6 @@ class  UsuarioModel {
             }else{
                 $this->response = "El usuario ya está registrado";
             }
-
         }
         catch(Exception $e){
 

@@ -197,6 +197,7 @@
                     data: data
                 })
                 .then( res =>{
+                    console.log(res)
                     if(res.data.message){ this.alertMsg = res.data.message}
 
                     if(res.data.content){

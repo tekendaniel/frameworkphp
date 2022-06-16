@@ -12,7 +12,7 @@ date_default_timezone_set('UTC');
             </div>
 
             <div>
-                <a href="<?php echo RUTA_URL . 'suscripciones/registrar' ?>" class="btn text-white" style="background-color:#2ECC71;">Agregar Recordatorio</a>
+                <a href="<?php echo RUTA_URL . 'suscripciones/registrar' ?>" class="btn text-white me-4" style="background-color:#2ECC71;">Agregar Recordatorio</a>
                 <a href="<?php echo RUTA_URL . 'calendario' ?>" class="btn text-white" style="background-color:#F39C12;">Ver Calendario</a>
             </div>
 
@@ -37,7 +37,7 @@ date_default_timezone_set('UTC');
                             <div>
                                 <div class="fw-ligh">{{record.nombreproveedor}}</div>
                                 <h5 class="d-blockt">{{record.nombresuscripcion}} </h5>
-                                <small><b>Monto:</b> {{record.precio}} </small><br>
+                                <small><b>Monto a pagar: </b> S/.{{record.precio}} </small><br>
                                 <small><b>Fecha Inicio:</b> {{ formatDate(record.inicio) }}</small><br>
                                 <small><b>Ciclo de Pago:</b> {{record.ciclo}} </small><br>
                                 <small><b>Proximo Pago:</b> {{calcularTiempo(record.inicio, record.ciclo )}} </small>
@@ -63,7 +63,6 @@ date_default_timezone_set('UTC');
 
 
 <script src="https://unpkg.com/vue@3"></script>
-
 <script>
     const {
         createApp
@@ -158,4 +157,4 @@ date_default_timezone_set('UTC');
             this.getRecordatorios();
         }
     }).mount('#listaRecordatorios')
-</script>
+</script> 
